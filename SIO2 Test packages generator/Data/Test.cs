@@ -7,22 +7,20 @@ namespace SIO2_Test_packages_generator.Data
 	{
 		public Test(bool init)
 		{
+			Points = 20;
 			SetExecutionStats(-1, -1);
 			if (!init) return;
-			Input = new List<string>();
-			Output = new List<string>();
 		}
 
 		public Test(int time, int memory, bool init)
 		{
+			Points = 20;
 			SetExecutionStats(time, memory);
 			if (!init) return;
-			Input = new List<string>();
-			Output = new List<string>();
 		}
 
 		[DisplayName("Name")]
-		public string TestName { get; set; }
+		public string TestName { get; internal set; }
 
 		public uint Points { get; set; }
 
@@ -30,7 +28,7 @@ namespace SIO2_Test_packages_generator.Data
 		{
 			get
 			{
-				if (TestName.StartsWith("0")) return "Init";
+				if (!string.IsNullOrEmpty(TestName) && TestName.StartsWith("0")) return "Init";
 
 				switch (Flags)
 				{
@@ -62,13 +60,26 @@ namespace SIO2_Test_packages_generator.Data
 		[DisplayName("Suggested Memory Limit")]
 		public uint SuggestedMemoryLimit => (uint) (Memory > 0 ? Memory + 512 : 32768);
 
-		public List<string> Input, Output;
+		public string[] Input, Output;
 		public ushort Flags;
+		internal TestEditor Editor;
 
 		public void SetExecutionStats(int time, int memory)
 		{
 			Time = time;
 			Memory = memory;
 		}
+
+		internal void OpenEditor()
+		{
+			if (Editor != null) Editor.FocusMe();
+			else
+			{
+				Editor = new TestEditor(this);
+				Editor.Show();
+			}
+		}
+
+		internal void EditorClosed() => Editor = null;
 	}
 }

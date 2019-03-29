@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using MetroFramework.Controls;
 using SIO2_Test_packages_generator.Data;
@@ -22,6 +17,7 @@ namespace SIO2_Test_packages_generator
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
+			MetroTextBox.CheckForIllegalCrossThreadCalls = false;
 			tabControl.SelectedIndex = 0;
 
 			Package = new Package();
@@ -56,6 +52,46 @@ namespace SIO2_Test_packages_generator
 			}
 		}
 
+		internal void UpdateData(object sender, EventArgs e)
+		{
+			var tb = (MetroTextBox) sender;
+
+			switch (((MetroTextBox) sender).Name)
+			{
+				case "codeTextBox":
+					Package.Code = tb.Text;
+					break;
+
+				case "titleTextBox":
+					Package.Name = tb.Text;
+					break;
+
+				case "docsTextBox":
+					Package.Docs = tb.Text;
+					break;
+
+				case "srcTextBox":
+					Package.SourceCodeFile = tb.Text;
+					break;
+
+				case "checkerTextBox":
+					Package.CheckerFile = tb.Enabled ? tb.Text : string.Empty;
+					break;
+
+				case "generatorTextBox":
+					Package.GeneratorFile = tb.Enabled ? tb.Text : string.Empty;
+					break;
+
+				case "binTextBox":
+					Package.BinaryFile = tb.Enabled ? tb.Text : string.Empty;
+					break;
+
+				case "launchCommandTextBox":
+					Package.ExecCommand = tb.Enabled ? tb.Text : string.Empty;
+					break;
+			}
+		}
+
 		internal void RefreshBinaryLocks(object sender, EventArgs e)
 		{
 			if (binaryManual.Checked)
@@ -82,7 +118,15 @@ namespace SIO2_Test_packages_generator
 
 		private void addTestButton_Click(object sender, EventArgs e)
 		{
+			var test = new Test(true);
+			Package.Tests.Add(test);
+			test.OpenEditor();
+		}
 
+		private void testsGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+		{
+			if (e.ColumnIndex != 0 && e.ColumnIndex != 2) return;
+			Package.Tests.ElementAt(e.RowIndex).OpenEditor();
 		}
 	}
 }
