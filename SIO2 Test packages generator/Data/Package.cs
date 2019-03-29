@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
@@ -32,7 +32,13 @@ namespace SIO2_Test_packages_generator.Data
 			{
 				try
 				{
-					output.OutputGenerated(GetOutput(input));
+					var stopwatch = new Stopwatch();
+					stopwatch.Start();
+					var result = GetOutput(input).ToArray();
+					stopwatch.Stop();
+					int.TryParse(result.ElementAt(0), out var ram);
+
+					output.OutputGenerated(result.Skip(1), (int)stopwatch.ElapsedMilliseconds, ram);
 				}
 				catch (Exception e)
 				{
@@ -74,7 +80,16 @@ namespace SIO2_Test_packages_generator.Data
 				writer.Flush();
 				writer.Close();
 
-				process.WaitForExit();
+				long peak = 0;
+
+				while (!process.HasExited)
+				{
+					var last = process.PrivateMemorySize64;
+					if (last > peak) peak = last;
+					Thread.Sleep(1);
+				}
+
+				yield return (peak / 1024).ToString();
 				string line;
 
 				if (!errorReader.EndOfStream)

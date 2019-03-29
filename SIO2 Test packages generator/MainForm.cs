@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Controls;
@@ -9,6 +10,7 @@ namespace SIO2_Test_packages_generator
 	public partial class MainForm : MetroFramework.Forms.MetroForm
 	{
 		internal static Package Package;
+		internal static MainForm Instance;
 
 		public MainForm()
 		{
@@ -18,6 +20,7 @@ namespace SIO2_Test_packages_generator
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			MetroTextBox.CheckForIllegalCrossThreadCalls = false;
+			Instance = this;
 			tabControl.SelectedIndex = 0;
 
 			Package = new Package();
@@ -116,12 +119,20 @@ namespace SIO2_Test_packages_generator
 
 		private void metroLink1_Click(object sender, EventArgs e) => new LicenseForm().ShowDialog();
 
+		internal void RefreshGridView()
+		{
+			testsGrid.DataSource = null;
+			testsGrid.DataSource = Package.TestsSource;
+		}
+
 		private void addTestButton_Click(object sender, EventArgs e)
 		{
 			var test = new Test(true);
 			Package.Tests.Add(test);
 			test.OpenEditor();
 		}
+
+		private void bulkAddingButton_Click(object sender, EventArgs e) => new BulkAdding().Show();
 
 		private void testsGrid_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
 		{

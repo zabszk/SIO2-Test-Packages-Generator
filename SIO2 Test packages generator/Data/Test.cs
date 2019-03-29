@@ -44,8 +44,10 @@ namespace SIO2_Test_packages_generator.Data
 			}
 		}
 
+		[DisplayName("Time [ms]")]
 		public int Time { get; private set; }
 
+		[DisplayName("Memory [KiB]")]
 		public int Memory { get; private set; }
 
 		[DisplayName("Time Limit")]
@@ -80,6 +82,10 @@ namespace SIO2_Test_packages_generator.Data
 			}
 		}
 
-		internal void EditorClosed() => Editor = null;
+		internal void EditorClosed()
+		{
+			Editor = null;
+			MainForm.Instance.RefreshGridView();
+		} 
 	}
 }

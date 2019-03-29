@@ -41,6 +41,21 @@ namespace SIO2_Test_packages_generator
 			idTextBox.TextChanged += UpdateTextBox;
 			inputTextBox.TextChanged += UpdateTextBox;
 			outputTextBox.TextChanged += UpdateTextBox;
+
+			switch (Target.Flags)
+			{
+				case (ushort)TestFlags.Slow:
+					typeComboBox.Text = "Slow";
+					break;
+
+				case (ushort)TestFlags.Incorrect:
+					typeComboBox.Text = "Incorrect";
+					break;
+
+				default:
+					typeComboBox.Text = "Normal";
+					break;
+			}
 		}
 
 		private void pointsTextBox_TextChanged(object sender, EventArgs e)
@@ -55,7 +70,20 @@ namespace SIO2_Test_packages_generator
 
 		private void typeComboBox_SelectedIndexChanged(object sender, EventArgs e)
 		{
+			switch (typeComboBox.Text)
+			{
+				case "Slow":
+					Target.Flags = (ushort)TestFlags.Slow;
+					break;
 
+				case "Incorrect":
+					Target.Flags = (ushort)TestFlags.Incorrect;
+					break;
+
+				default:
+					Target.Flags = 0;
+					break;
+			}
 		}
 
 		private void generateOutputButton_Click(object sender, EventArgs e)
@@ -67,10 +95,12 @@ namespace SIO2_Test_packages_generator
 			MainForm.Package.GenerateOutput(inputTextBox.Lines, this);
 		}
 
-		public void OutputGenerated(IEnumerable<string> output)
+		public void OutputGenerated(IEnumerable<string> output, int time, int memory)
 		{
 			outputTextBox.Text =
 				output.Aggregate("", (current, line) => current + (line.Trim('\n', '\r') + Environment.NewLine));
+
+			Target.SetExecutionStats(time, memory);
 
 			generateOutputButton.Enabled = true;
 			outputTextBox.Enabled = true;
@@ -115,7 +145,7 @@ namespace SIO2_Test_packages_generator
 					break;
 
 				case "outputTextBox":
-					Target.Input = tb.Lines;
+					Target.Output = tb.Lines;
 					break;
 			}
 		}
