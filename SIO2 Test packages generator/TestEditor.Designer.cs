@@ -1,6 +1,6 @@
 ﻿namespace SIO2_Test_packages_generator
 {
-	partial class Form1
+	partial class TestEditor
 	{
 		/// <summary>
 		/// Required designer variable.
@@ -28,13 +28,21 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.components = new System.ComponentModel.Container();
+			this.SuspendLayout();
+			// 
+			// TestEditor
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			this.ClientSize = new System.Drawing.Size(800, 450);
-			this.Text = "Form1";
+			this.ClientSize = new System.Drawing.Size(823, 460);
+			this.MaximizeBox = false;
+			this.Name = "TestEditor";
+			this.Resizable = false;
+			this.Text = "Test Editor";
+			this.ResumeLayout(false);
+
 		}
 
 		#endregion
 	}
 }
-

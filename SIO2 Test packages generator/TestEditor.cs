@@ -9,9 +9,9 @@ using System.Windows.Forms;
 
 namespace SIO2_Test_packages_generator
 {
-	public partial class Form1 : Form
+	public partial class TestEditor : MetroFramework.Forms.MetroForm
 	{
-		public Form1()
+		public TestEditor()
 		{
 			InitializeComponent();
 		}
