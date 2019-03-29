@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SIO2 Test packages generator", "SIO2 Test packages generator\SIO2 Test packages generator.csproj", "{91F9D304-2691-42F2-B6BE-3B342B8006DF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{91F9D304-2691-42F2-B6BE-3B342B8006DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{91F9D304-2691-42F2-B6BE-3B342B8006DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{91F9D304-2691-42F2-B6BE-3B342B8006DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{91F9D304-2691-42F2-B6BE-3B342B8006DF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F823FAF9-A6D1-417B-9864-C1291CE4EA49}
+	EndGlobalSection
+EndGlobal
