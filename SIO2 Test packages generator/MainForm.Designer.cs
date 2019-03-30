@@ -158,7 +158,7 @@
 			this.tabControl.Controls.Add(this.buildingTab);
 			this.tabControl.Location = new System.Drawing.Point(23, 156);
 			this.tabControl.Name = "tabControl";
-			this.tabControl.SelectedIndex = 1;
+			this.tabControl.SelectedIndex = 0;
 			this.tabControl.Size = new System.Drawing.Size(1070, 392);
 			this.tabControl.TabIndex = 4;
 			this.tabControl.UseSelectable = true;

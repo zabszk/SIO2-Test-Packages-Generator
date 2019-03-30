@@ -26,6 +26,10 @@ namespace SIO2_Test_packages_generator.Data
 
 		internal IEnumerable<string> TestPackage()
 		{
+			if (Code.Length != 3) yield return "Package code must have exactly 3 chars.";
+			if (string.IsNullOrWhiteSpace(SourceCodeFile)) yield return "Source code file path cannot be empty.";
+			if (string.IsNullOrWhiteSpace(Docs)) yield return "Docs file path cannot be empty.";
+
 			var processed = new HashSet<string>();
 			ushort counter = 0;
 			
