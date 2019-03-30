@@ -35,15 +35,22 @@
 			this.inputDirLabel = new MetroFramework.Controls.MetroLabel();
 			this.inputDirTextBox = new MetroFramework.Controls.MetroTextBox();
 			this.folderModePanel = new MetroFramework.Controls.MetroPanel();
+			this.outputDirBrowse = new MetroFramework.Controls.MetroButton();
+			this.inputDirBrowse = new MetroFramework.Controls.MetroButton();
 			this.folderModeAutoGenCheckBox = new MetroFramework.Controls.MetroCheckBox();
 			this.outputDirLabel = new MetroFramework.Controls.MetroLabel();
 			this.outputDirTextBox = new MetroFramework.Controls.MetroTextBox();
 			this.fileModeRadio = new MetroFramework.Controls.MetroRadioButton();
 			this.fileModePanel = new MetroFramework.Controls.MetroPanel();
+			this.filePathBrowse = new MetroFramework.Controls.MetroButton();
 			this.filePathLabel = new MetroFramework.Controls.MetroLabel();
 			this.filePathTextBox = new MetroFramework.Controls.MetroTextBox();
 			this.fileModeDesc = new MetroFramework.Controls.MetroLabel();
 			this.addTestsButton = new MetroFramework.Controls.MetroButton();
+			this.browseFileDialog = new System.Windows.Forms.OpenFileDialog();
+			this.browseFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
+			this.addLabel = new MetroFramework.Controls.MetroLabel();
+			this.addSpinner = new MetroFramework.Controls.MetroProgressSpinner();
 			this.folderModePanel.SuspendLayout();
 			this.fileModePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -120,6 +127,8 @@
 			// 
 			// folderModePanel
 			// 
+			this.folderModePanel.Controls.Add(this.outputDirBrowse);
+			this.folderModePanel.Controls.Add(this.inputDirBrowse);
 			this.folderModePanel.Controls.Add(this.folderModeAutoGenCheckBox);
 			this.folderModePanel.Controls.Add(this.outputDirLabel);
 			this.folderModePanel.Controls.Add(this.outputDirTextBox);
@@ -137,6 +146,26 @@
 			this.folderModePanel.VerticalScrollbarHighlightOnWheel = false;
 			this.folderModePanel.VerticalScrollbarSize = 10;
 			// 
+			// outputDirBrowse
+			// 
+			this.outputDirBrowse.Location = new System.Drawing.Point(513, 163);
+			this.outputDirBrowse.Name = "outputDirBrowse";
+			this.outputDirBrowse.Size = new System.Drawing.Size(75, 23);
+			this.outputDirBrowse.TabIndex = 9;
+			this.outputDirBrowse.Text = "Browse";
+			this.outputDirBrowse.UseSelectable = true;
+			this.outputDirBrowse.Click += new System.EventHandler(this.FolderBrowse);
+			// 
+			// inputDirBrowse
+			// 
+			this.inputDirBrowse.Location = new System.Drawing.Point(513, 134);
+			this.inputDirBrowse.Name = "inputDirBrowse";
+			this.inputDirBrowse.Size = new System.Drawing.Size(75, 23);
+			this.inputDirBrowse.TabIndex = 8;
+			this.inputDirBrowse.Text = "Browse";
+			this.inputDirBrowse.UseSelectable = true;
+			this.inputDirBrowse.Click += new System.EventHandler(this.FolderBrowse);
+			// 
 			// folderModeAutoGenCheckBox
 			// 
 			this.folderModeAutoGenCheckBox.AutoSize = true;
@@ -146,6 +175,7 @@
 			this.folderModeAutoGenCheckBox.TabIndex = 7;
 			this.folderModeAutoGenCheckBox.Text = "Generate outputs";
 			this.folderModeAutoGenCheckBox.UseSelectable = true;
+			this.folderModeAutoGenCheckBox.CheckedChanged += new System.EventHandler(this.folderModeAutoGenCheckBox_CheckedChanged);
 			// 
 			// outputDirLabel
 			// 
@@ -199,6 +229,7 @@
 			// 
 			// fileModePanel
 			// 
+			this.fileModePanel.Controls.Add(this.filePathBrowse);
 			this.fileModePanel.Controls.Add(this.filePathLabel);
 			this.fileModePanel.Controls.Add(this.filePathTextBox);
 			this.fileModePanel.Controls.Add(this.fileModeDesc);
@@ -213,6 +244,16 @@
 			this.fileModePanel.VerticalScrollbarBarColor = true;
 			this.fileModePanel.VerticalScrollbarHighlightOnWheel = false;
 			this.fileModePanel.VerticalScrollbarSize = 10;
+			// 
+			// filePathBrowse
+			// 
+			this.filePathBrowse.Location = new System.Drawing.Point(513, 134);
+			this.filePathBrowse.Name = "filePathBrowse";
+			this.filePathBrowse.Size = new System.Drawing.Size(75, 23);
+			this.filePathBrowse.TabIndex = 10;
+			this.filePathBrowse.Text = "Browse";
+			this.filePathBrowse.UseSelectable = true;
+			this.filePathBrowse.Click += new System.EventHandler(this.filePathBrowse_Click);
 			// 
 			// filePathLabel
 			// 
@@ -270,12 +311,40 @@
 			this.addTestsButton.TabIndex = 8;
 			this.addTestsButton.Text = "Add tests";
 			this.addTestsButton.UseSelectable = true;
+			this.addTestsButton.Click += new System.EventHandler(this.addTestsButton_Click);
+			// 
+			// browseFileDialog
+			// 
+			this.browseFileDialog.FileName = "SIO2 Test Packages Generator Browse";
+			this.browseFileDialog.RestoreDirectory = true;
+			// 
+			// addLabel
+			// 
+			this.addLabel.AutoSize = true;
+			this.addLabel.Location = new System.Drawing.Point(177, 595);
+			this.addLabel.Name = "addLabel";
+			this.addLabel.Size = new System.Drawing.Size(127, 19);
+			this.addLabel.TabIndex = 9;
+			this.addLabel.Text = "Processing test X/Y...";
+			this.addLabel.Visible = false;
+			// 
+			// addSpinner
+			// 
+			this.addSpinner.Location = new System.Drawing.Point(149, 591);
+			this.addSpinner.Maximum = 100;
+			this.addSpinner.Name = "addSpinner";
+			this.addSpinner.Size = new System.Drawing.Size(22, 23);
+			this.addSpinner.TabIndex = 11;
+			this.addSpinner.UseSelectable = true;
+			this.addSpinner.Visible = false;
 			// 
 			// BulkAdding
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(900, 631);
+			this.Controls.Add(this.addSpinner);
+			this.Controls.Add(this.addLabel);
 			this.Controls.Add(this.addTestsButton);
 			this.Controls.Add(this.fileModePanel);
 			this.Controls.Add(this.fileModeRadio);
@@ -286,6 +355,7 @@
 			this.Name = "BulkAdding";
 			this.Resizable = false;
 			this.Text = "Bulk Tests Adding";
+			this.Load += new System.EventHandler(this.BulkAdding_Load);
 			this.folderModePanel.ResumeLayout(false);
 			this.folderModePanel.PerformLayout();
 			this.fileModePanel.ResumeLayout(false);
@@ -312,5 +382,12 @@
 		private MetroFramework.Controls.MetroTextBox filePathTextBox;
 		private MetroFramework.Controls.MetroLabel fileModeDesc;
 		private MetroFramework.Controls.MetroButton addTestsButton;
+		private MetroFramework.Controls.MetroButton outputDirBrowse;
+		private MetroFramework.Controls.MetroButton inputDirBrowse;
+		private MetroFramework.Controls.MetroButton filePathBrowse;
+		private System.Windows.Forms.OpenFileDialog browseFileDialog;
+		private System.Windows.Forms.FolderBrowserDialog browseFolderDialog;
+		private MetroFramework.Controls.MetroLabel addLabel;
+		private MetroFramework.Controls.MetroProgressSpinner addSpinner;
 	}
 }

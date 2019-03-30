@@ -41,6 +41,7 @@
 			this.okButton = new MetroFramework.Controls.MetroButton();
 			this.generateOutputButton = new MetroFramework.Controls.MetroButton();
 			this.deleteButton = new MetroFramework.Controls.MetroButton();
+			this.initHintLabel = new MetroFramework.Controls.MetroLabel();
 			this.SuspendLayout();
 			// 
 			// idLabel
@@ -258,11 +259,21 @@
 			this.deleteButton.UseSelectable = true;
 			this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
 			// 
+			// initHintLabel
+			// 
+			this.initHintLabel.AutoSize = true;
+			this.initHintLabel.Location = new System.Drawing.Point(174, 74);
+			this.initHintLabel.Name = "initHintLabel";
+			this.initHintLabel.Size = new System.Drawing.Size(222, 19);
+			this.initHintLabel.TabIndex = 14;
+			this.initHintLabel.Text = "(Please use group \"0\" for initial tests)";
+			// 
 			// TestEditor
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(823, 551);
+			this.Controls.Add(this.initHintLabel);
 			this.Controls.Add(this.deleteButton);
 			this.Controls.Add(this.generateOutputButton);
 			this.Controls.Add(this.okButton);
@@ -302,5 +313,6 @@
 		private MetroFramework.Controls.MetroButton okButton;
 		private MetroFramework.Controls.MetroButton generateOutputButton;
 		private MetroFramework.Controls.MetroButton deleteButton;
+		private MetroFramework.Controls.MetroLabel initHintLabel;
 	}
 }

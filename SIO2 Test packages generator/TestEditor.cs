@@ -15,7 +15,7 @@ namespace SIO2_Test_packages_generator
 		public TestEditor()
 		{
 			InitializeComponent();
-			Target = new Test(true);
+			Target = new Test();
 		}
 
 		public TestEditor(Test target)
@@ -102,6 +102,12 @@ namespace SIO2_Test_packages_generator
 
 			Target.SetExecutionStats(time, memory);
 
+			if (Target.TimeLimit == 0)
+				Target.TimeLimit = Target.RecommendedTimeLimit;
+
+			if (Target.MemoryLimit == 0)
+				Target.MemoryLimit = Target.RecommendedMemoryLimit;
+
 			generateOutputButton.Enabled = true;
 			outputTextBox.Enabled = true;
 		}
@@ -137,7 +143,8 @@ namespace SIO2_Test_packages_generator
 			switch (((MetroTextBox) sender).Name)
 			{
 				case "idTextBox":
-					Target.TestName = tb.Text;
+					Target.TestName = tb.Text.ToLower();
+					idTextBox.Text = idTextBox.Text.ToLower();
 					break;
 
 				case "inputTextBox":

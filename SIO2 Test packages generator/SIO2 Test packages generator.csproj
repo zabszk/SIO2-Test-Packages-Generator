@@ -59,10 +59,23 @@
     <Compile Include="BulkAdding.Designer.cs">
       <DependentUpon>BulkAdding.cs</DependentUpon>
     </Compile>
+    <Compile Include="BulkAddingConfirmationForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BulkAddingConfirmationForm.Designer.cs">
+      <DependentUpon>BulkAddingConfirmationForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Data\IOutput.cs" />
+    <Compile Include="Data\TestConfirmation.cs" />
     <Compile Include="Data\TestFlags.cs" />
     <Compile Include="Data\Package.cs" />
     <Compile Include="Data\Test.cs" />
+    <Compile Include="ErrorsList.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ErrorsList.Designer.cs">
+      <DependentUpon>ErrorsList.cs</DependentUpon>
+    </Compile>
     <Compile Include="LicenseForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -85,6 +98,12 @@
     </Compile>
     <EmbeddedResource Include="BulkAdding.resx">
       <DependentUpon>BulkAdding.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BulkAddingConfirmationForm.resx">
+      <DependentUpon>BulkAddingConfirmationForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ErrorsList.resx">
+      <DependentUpon>ErrorsList.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="LicenseForm.resx">
       <DependentUpon>LicenseForm.cs</DependentUpon>

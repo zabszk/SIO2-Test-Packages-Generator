@@ -57,13 +57,13 @@
 			this.srcLabel = new MetroFramework.Controls.MetroLabel();
 			this.docsLabel = new MetroFramework.Controls.MetroLabel();
 			this.testsTab = new MetroFramework.Controls.MetroTabPage();
+			this.bulkAddingButton = new MetroFramework.Controls.MetroButton();
 			this.addTestButton = new MetroFramework.Controls.MetroButton();
 			this.testsGrid = new MetroFramework.Controls.MetroGrid();
 			this.buildingTab = new MetroFramework.Controls.MetroTabPage();
 			this.browseFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.metroLink1 = new MetroFramework.Controls.MetroLink();
-			this.bulkAddingButton = new MetroFramework.Controls.MetroButton();
 			this.tabControl.SuspendLayout();
 			this.configurationTab.SuspendLayout();
 			this.metroPanel1.SuspendLayout();
@@ -162,6 +162,7 @@
 			this.tabControl.Size = new System.Drawing.Size(1070, 392);
 			this.tabControl.TabIndex = 4;
 			this.tabControl.UseSelectable = true;
+			this.tabControl.SelectedIndexChanged += new System.EventHandler(this.tabControl_SelectedIndexChanged);
 			// 
 			// configurationTab
 			// 
@@ -549,6 +550,16 @@
 			this.testsTab.VerticalScrollbarHighlightOnWheel = false;
 			this.testsTab.VerticalScrollbarSize = 10;
 			// 
+			// bulkAddingButton
+			// 
+			this.bulkAddingButton.Location = new System.Drawing.Point(84, 324);
+			this.bulkAddingButton.Name = "bulkAddingButton";
+			this.bulkAddingButton.Size = new System.Drawing.Size(107, 23);
+			this.bulkAddingButton.TabIndex = 4;
+			this.bulkAddingButton.Text = "Bulk tests adding";
+			this.bulkAddingButton.UseSelectable = true;
+			this.bulkAddingButton.Click += new System.EventHandler(this.bulkAddingButton_Click);
+			// 
 			// addTestButton
 			// 
 			this.addTestButton.Location = new System.Drawing.Point(3, 324);
@@ -561,6 +572,7 @@
 			// 
 			// testsGrid
 			// 
+			this.testsGrid.AllowUserToAddRows = false;
 			this.testsGrid.AllowUserToResizeRows = false;
 			this.testsGrid.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
 			this.testsGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
@@ -640,16 +652,6 @@
 			this.metroLink1.Text = "View License";
 			this.metroLink1.UseSelectable = true;
 			this.metroLink1.Click += new System.EventHandler(this.metroLink1_Click);
-			// 
-			// bulkAddingButton
-			// 
-			this.bulkAddingButton.Location = new System.Drawing.Point(84, 324);
-			this.bulkAddingButton.Name = "bulkAddingButton";
-			this.bulkAddingButton.Size = new System.Drawing.Size(107, 23);
-			this.bulkAddingButton.TabIndex = 4;
-			this.bulkAddingButton.Text = "Bulk tests adding";
-			this.bulkAddingButton.UseSelectable = true;
-			this.bulkAddingButton.Click += new System.EventHandler(this.bulkAddingButton_Click);
 			// 
 			// MainForm
 			// 

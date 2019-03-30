@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
 using MetroFramework.Controls;
@@ -12,6 +11,14 @@ namespace SIO2_Test_packages_generator
 		internal static Package Package;
 		internal static MainForm Instance;
 
+		private static bool _passed;
+
+		public static bool TestsPassed
+		{
+			get => _passed;
+			set { _passed = value; }
+		}
+
 		public MainForm()
 		{
 			InitializeComponent();
@@ -20,6 +27,12 @@ namespace SIO2_Test_packages_generator
 		private void MainForm_Load(object sender, EventArgs e)
 		{
 			MetroTextBox.CheckForIllegalCrossThreadCalls = false;
+			MetroCheckBox.CheckForIllegalCrossThreadCalls = false;
+			MetroRadioButton.CheckForIllegalCrossThreadCalls = false;
+			MetroPanel.CheckForIllegalCrossThreadCalls = false;
+			MetroProgressSpinner.CheckForIllegalCrossThreadCalls = false;
+			MetroLabel.CheckForIllegalCrossThreadCalls = false;
+
 			Instance = this;
 			tabControl.SelectedIndex = 0;
 
@@ -27,7 +40,7 @@ namespace SIO2_Test_packages_generator
 			testsGrid.DataSource = Package.TestsSource;
 		}
 
-		internal void ConfigBrowse(object sender, EventArgs e)
+		private void ConfigBrowse(object sender, EventArgs e)
 		{
 			if (browseFileDialog.ShowDialog() != DialogResult.OK) return;
 
@@ -55,7 +68,7 @@ namespace SIO2_Test_packages_generator
 			}
 		}
 
-		internal void UpdateData(object sender, EventArgs e)
+		private void UpdateData(object sender, EventArgs e)
 		{
 			var tb = (MetroTextBox) sender;
 
@@ -63,6 +76,7 @@ namespace SIO2_Test_packages_generator
 			{
 				case "codeTextBox":
 					Package.Code = tb.Text;
+					TestsPassed = false;
 					break;
 
 				case "titleTextBox":
@@ -95,7 +109,7 @@ namespace SIO2_Test_packages_generator
 			}
 		}
 
-		internal void RefreshBinaryLocks(object sender, EventArgs e)
+		private void RefreshBinaryLocks(object sender, EventArgs e)
 		{
 			if (binaryManual.Checked)
 				binTextBox.Enabled = binBrowse.Enabled = launchCommandTextBox.Enabled = false;
@@ -127,7 +141,7 @@ namespace SIO2_Test_packages_generator
 
 		private void addTestButton_Click(object sender, EventArgs e)
 		{
-			var test = new Test(true);
+			var test = new Test();
 			Package.Tests.Add(test);
 			test.OpenEditor();
 		}
@@ -139,5 +153,7 @@ namespace SIO2_Test_packages_generator
 			if (e.ColumnIndex != 0 && e.ColumnIndex != 2) return;
 			Package.Tests.ElementAt(e.RowIndex).OpenEditor();
 		}
+
+		private void tabControl_SelectedIndexChanged(object sender, EventArgs e) => TestsPassed = false;
 	}
 }

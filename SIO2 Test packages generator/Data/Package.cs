@@ -24,6 +24,34 @@ namespace SIO2_Test_packages_generator.Data
 		internal string SourceCodeFile, CheckerFile, GeneratorFile;
 		internal string BinaryFile, ExecCommand;
 
+		internal IEnumerable<string> TestPackage()
+		{
+			var processed = new HashSet<string>();
+			ushort counter = 0;
+			
+			foreach (var test in Tests)
+			{
+				if (!test.ValidateTest()) yield return $"Test {(test.TestName.Length == 0 ? "(unnamed)" : test.TestCodeName)} failed tests.";
+				else
+				{
+					if (test.IsInSubGroup())
+					{
+						if (processed.Contains(test.SubGroupName())) continue;
+						processed.Add(test.SubGroupName());
+						counter++;
+					}
+					else if (processed.Contains(test.TestCodeName))
+						yield return $"Test name {test.TestCodeName} duplicate found.";
+					else if (test.Type == "Normal")
+						counter++;
+				}
+			}
+
+			for (var i = 0; i < counter; i++)
+				if (Tests.All(test => test.SubGroupName() != i.ToString()))
+					yield return $"Test group {i} is missing.";
+		}
+
 		#region Output Generation
 
 		internal void GenerateOutput(IEnumerable<string> input, IOutput output)

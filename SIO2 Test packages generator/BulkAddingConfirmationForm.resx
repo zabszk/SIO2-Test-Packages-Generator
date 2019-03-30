@@ -117,23 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="folderModeDesc.Text" xml:space="preserve">
-    <value>This mode uses folder containing files named like "1a.ext", "1b.ext", etc...
-Each file must contain complete input.
-Extensions of input and output files must be the same.
-
-You can specify second folder with outputs (same way as inputs) or have outputs generated (if binary file / launch command was specified).</value>
-  </data>
-  <data name="fileModeDesc.Text" xml:space="preserve">
-    <value>This mode uses one file containing all tests and requires automatic generation of outputs.
-Each line of the file should follow the format: test name: input
-Input can contain spaces, use "\n" for new line in the input.
-Lines not matching the format will be ignored.</value>
-  </data>
-  <metadata name="browseFileDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <metadata name="browseFolderDialog.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>162, 17</value>
-  </metadata>
 </root>
