@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading;
 using System.Windows.Forms;
 using SIO2_Test_packages_generator.Data;
@@ -92,9 +93,6 @@ namespace SIO2_Test_packages_generator
 
 					var max = inputFiles.Length;
 					var i = 0;
-					addSpinner.Value = i;
-					addSpinner.Maximum = max;
-					addSpinner.Visible = true;
 					addLabel.Text = $"Processing test {i}/{max}...";
 					addLabel.Visible = true;
 
@@ -103,10 +101,9 @@ namespace SIO2_Test_packages_generator
 						try
 						{
 							i++;
-							addLabel.Text = $"Processing test {i}/{max}...";
-							addSpinner.Value = i;
-
 							var name = Path.GetFileName(input);
+							addLabel.Text = $"Processing test {i}/{max} ({name})...";
+
 							string[] testInput, testOutput = null;
 							if (!folderModeAutoGenCheckBox.Checked)
 							{
@@ -138,7 +135,7 @@ namespace SIO2_Test_packages_generator
 								continue;
 							}
 
-							var noext = input;
+							var noext = name;
 							if (noext.Contains("."))
 							{
 								var index = noext.LastIndexOf(".", StringComparison.Ordinal);
@@ -164,8 +161,10 @@ namespace SIO2_Test_packages_generator
 
 							if (_status == 1)
 							{
-								_output?.CopyTo(test.Output, 0);
+								test.Output = _output;
 								test.SetExecutionStats(_time, _memory);
+								test.TimeLimit = test.RecommendedTimeLimit;
+								test.MemoryLimit = test.RecommendedMemoryLimit;
 
 								_output = null;
 							}
@@ -191,11 +190,15 @@ namespace SIO2_Test_packages_generator
 				try
 				{
 					var lines = File.ReadAllLines(filePathTextBox.Text);
+					var max = lines.Length;
 					var i = -1;
+					addLabel.Visible = true;
+
 					foreach (var line in lines)
 					{
 						i++;
-
+						addLabel.Text = $"Processing test {i + 1}/{max}...";
+						
 						try
 						{
 							if (string.IsNullOrWhiteSpace(line)) continue;
@@ -224,8 +227,10 @@ namespace SIO2_Test_packages_generator
 
 							if (_status == 1)
 							{
-								_output?.CopyTo(test.Output, 0);
+								test.Output = _output;
 								test.SetExecutionStats(_time, _memory);
+								test.TimeLimit = test.RecommendedTimeLimit;
+								test.MemoryLimit = test.RecommendedMemoryLimit;
 
 								_output = null;
 							}
@@ -237,7 +242,7 @@ namespace SIO2_Test_packages_generator
 						}
 						catch (Exception e)
 						{
-							errors.Add($"Error during processing test in line {i}: {e.Message}");
+							errors.Add($"Error during processing test in line {i}: {e.Message}, {e.StackTrace}");
 						}
 					}
 				}
@@ -259,9 +264,10 @@ namespace SIO2_Test_packages_generator
 					new BulkAddingConfirmationForm(tests).Show();
 				});
 
-			addSpinner.Visible = false;
 			addLabel.Visible = false;
 			MasterLock = false;
+
+			Close();
 		}
 
 		public void OutputGenerated(IEnumerable<string> output, int time, int memory)

@@ -50,7 +50,6 @@
 			this.browseFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.browseFolderDialog = new System.Windows.Forms.FolderBrowserDialog();
 			this.addLabel = new MetroFramework.Controls.MetroLabel();
-			this.addSpinner = new MetroFramework.Controls.MetroProgressSpinner();
 			this.folderModePanel.SuspendLayout();
 			this.fileModePanel.SuspendLayout();
 			this.SuspendLayout();
@@ -321,29 +320,18 @@
 			// addLabel
 			// 
 			this.addLabel.AutoSize = true;
-			this.addLabel.Location = new System.Drawing.Point(177, 595);
+			this.addLabel.Location = new System.Drawing.Point(130, 595);
 			this.addLabel.Name = "addLabel";
 			this.addLabel.Size = new System.Drawing.Size(127, 19);
 			this.addLabel.TabIndex = 9;
 			this.addLabel.Text = "Processing test X/Y...";
 			this.addLabel.Visible = false;
 			// 
-			// addSpinner
-			// 
-			this.addSpinner.Location = new System.Drawing.Point(149, 591);
-			this.addSpinner.Maximum = 100;
-			this.addSpinner.Name = "addSpinner";
-			this.addSpinner.Size = new System.Drawing.Size(22, 23);
-			this.addSpinner.TabIndex = 11;
-			this.addSpinner.UseSelectable = true;
-			this.addSpinner.Visible = false;
-			// 
 			// BulkAdding
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.ClientSize = new System.Drawing.Size(900, 631);
-			this.Controls.Add(this.addSpinner);
 			this.Controls.Add(this.addLabel);
 			this.Controls.Add(this.addTestsButton);
 			this.Controls.Add(this.fileModePanel);
@@ -388,6 +376,5 @@
 		private System.Windows.Forms.OpenFileDialog browseFileDialog;
 		private System.Windows.Forms.FolderBrowserDialog browseFolderDialog;
 		private MetroFramework.Controls.MetroLabel addLabel;
-		private MetroFramework.Controls.MetroProgressSpinner addSpinner;
 	}
 }
