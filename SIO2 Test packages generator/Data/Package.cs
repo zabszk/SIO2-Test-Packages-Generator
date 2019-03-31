@@ -12,6 +12,7 @@ namespace SIO2_Test_packages_generator.Data
 	{
 		internal Package()
 		{
+			Code = string.Empty;
 			Tests = new BindingList<Test>();
 			TestsSource = new BindingSource(Tests, null);
 		}

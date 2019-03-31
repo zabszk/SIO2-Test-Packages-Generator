@@ -165,7 +165,7 @@ namespace SIO2_Test_packages_generator.Data
 			return TestName.Length != 1 && ushort.TryParse(TestName.Substring(0, TestName.Length - 1), out parse);
 		}
 
-		internal bool IsInSubGroup() => TestName.Length > 1 && ushort.TryParse(TestName, out var parse);
+		internal bool IsInSubGroup() => TestName.Length > 1 && !ushort.TryParse(TestName, out var parse);
 
 		internal string SubGroupName() => IsInSubGroup() ? TestCodeName.Substring(0, TestName.Length - 1) : TestCodeName;
 	}

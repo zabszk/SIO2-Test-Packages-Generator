@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO.Compression.FileSystem;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
@@ -235,7 +235,7 @@ namespace SIO2_Test_packages_generator
 			}
 			catch (Exception ex)
 			{
-				MetroMessageBox.Show(this, "Error during package building", "Exception: " + ex.Message,
+				MetroMessageBox.Show(this,"Exception: " + ex.Message, "Error during package building",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				preparingStatusLabel.ForeColor = Color.Crimson;
@@ -256,16 +256,17 @@ namespace SIO2_Test_packages_generator
 
 			try
 			{
-				var workingDir = "packages/" + Package.Code;
+				var workingDir = "packages/" + Package.Code + "/" + Package.Code;
 
-				if (Directory.Exists(workingDir) || File.Exists("packages/" + Package.Code + ".zip"))
+				if (Directory.Exists("packages/" + Package.Code) || File.Exists("packages/" + Package.Code + ".zip"))
 				{
-					if (MetroMessageBox.Show(this, "Overwrite confirmation",
-						    "Package with this code already exists in the \"packages\" folder.\n\nDo you want to overwrite the existing text package?",
-						    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+					if (MetroMessageBox.Show(this,
+						    "Package with this code already exists in the \"packages\" folder.\n\nDo you want to overwrite the existing text package?", 
+						    "Overwrite confirmation",
+							MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 					{
-						if (Directory.Exists(workingDir))
-							Directory.Delete(workingDir, true);
+						if (Directory.Exists("packages/" + Package.Code))
+							Directory.Delete("packages/" + Package.Code, true);
 
 						if (File.Exists("packages/" + Package.Code + ".zip"))
 							File.Delete("packages/" + Package.Code + ".zip");
@@ -333,11 +334,16 @@ namespace SIO2_Test_packages_generator
 
 				preparingStatusLabel.Text = "Generating ZIP file...";
 
-				
+				ZipFile.CreateFromDirectory($"packages/{Package.Code}", $"packages/{Package.Code}.zip");
+				Directory.Delete("packages/" + Package.Code, true);
+
+				preparingStatusLabel.ForeColor = Color.LimeGreen;
+				preparingStatusLabel.Text = "Package building completed";
+				tabControl.Enabled = true;
 			}
 			catch (Exception e)
 			{
-				MetroMessageBox.Show(this, "Error during package building", "Exception: " + e.Message,
+				MetroMessageBox.Show(this, "Exception: " + e.Message, "Error during package building",
 					MessageBoxButtons.OK, MessageBoxIcon.Error);
 
 				preparingStatusLabel.ForeColor = Color.Crimson;
@@ -348,6 +354,17 @@ namespace SIO2_Test_packages_generator
 			}
 		}
 
-		private string FileExtension(string path) => (new FileInfo(path)).Extension;
+		private string FileExtension(string path) => (new FileInfo(path)).Extension.TrimStart('.');
+
+		private void TextBox_DragEnter(object sender, DragEventArgs e) => e.Effect =
+			e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
+
+		private void TextBox_DragDrop(object sender, DragEventArgs e)
+		{
+			var tb = (MetroTextBox)sender;
+			var files = (string[]) e.Data.GetData(DataFormats.FileDrop);
+			if (files == null || files.Length == 0) return;
+			tb.Text = files[0];
+		}
 	}
 }

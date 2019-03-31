@@ -96,6 +96,7 @@
 			// 
 			// inputDirTextBox
 			// 
+			this.inputDirTextBox.AllowDrop = true;
 			// 
 			// 
 			// 
@@ -123,6 +124,8 @@
 			this.inputDirTextBox.UseSelectable = true;
 			this.inputDirTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.inputDirTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+			this.inputDirTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
+			this.inputDirTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
 			// 
 			// folderModePanel
 			// 
@@ -187,6 +190,7 @@
 			// 
 			// outputDirTextBox
 			// 
+			this.outputDirTextBox.AllowDrop = true;
 			// 
 			// 
 			// 
@@ -214,6 +218,8 @@
 			this.outputDirTextBox.UseSelectable = true;
 			this.outputDirTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.outputDirTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+			this.outputDirTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
+			this.outputDirTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
 			// 
 			// fileModeRadio
 			// 
@@ -265,6 +271,7 @@
 			// 
 			// filePathTextBox
 			// 
+			this.filePathTextBox.AllowDrop = true;
 			// 
 			// 
 			// 
@@ -292,6 +299,8 @@
 			this.filePathTextBox.UseSelectable = true;
 			this.filePathTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.filePathTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
+			this.filePathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
+			this.filePathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
 			// 
 			// fileModeDesc
 			// 

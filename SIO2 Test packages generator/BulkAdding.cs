@@ -5,6 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading;
 using System.Windows.Forms;
+using MetroFramework.Controls;
 using SIO2_Test_packages_generator.Data;
 
 namespace SIO2_Test_packages_generator
@@ -278,10 +279,21 @@ namespace SIO2_Test_packages_generator
 			_status = 1;
 		}
 
+		private void TextBox_DragDrop(object sender, DragEventArgs e)
+		{
+			var tb = (MetroTextBox)sender;
+			var files = (string[])e.Data.GetData(DataFormats.FileDrop);
+			if (files == null || files.Length == 0) return;
+			tb.Text = files[0];
+		}
+
 		public void OutputGenerationFailed(string error)
 		{
 			_error = error;
 			_status = 2;
 		}
+
+		private void DragEnter(object sender, DragEventArgs e) => e.Effect =
+			e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
 	}
 }
