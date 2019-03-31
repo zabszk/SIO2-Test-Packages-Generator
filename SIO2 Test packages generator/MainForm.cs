@@ -4,6 +4,7 @@ using System.Drawing;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
@@ -313,8 +314,8 @@ namespace SIO2_Test_packages_generator
 
 				foreach (var test in Package.Tests)
 				{
-					File.WriteAllLines($"{workingDir}/in/{test.TestCodeName}.in", test.Input);
-					File.WriteAllLines($"{workingDir}/out/{test.TestCodeName}.out", test.Output);
+					File.WriteAllLines($"{workingDir}/in/{Package.Code}{test.TestCodeName}.in", test.Input);
+					File.WriteAllLines($"{workingDir}/out/{Package.Code}{test.TestCodeName}.out", test.Output);
 					time += $"{Environment.NewLine}    {test.TestCodeName}: {test.TimeLimit}";
 					memory += $"{Environment.NewLine}    {test.TestCodeName}: {test.MemoryLimit}";
 					scores += $"{Environment.NewLine}    {test.TestCodeName}: {test.Points}";
@@ -334,7 +335,7 @@ namespace SIO2_Test_packages_generator
 
 				preparingStatusLabel.Text = "Generating ZIP file...";
 
-				ZipFile.CreateFromDirectory($"packages/{Package.Code}", $"packages/{Package.Code}.zip");
+				ZipFile.CreateFromDirectory($"packages/{Package.Code}", $"packages/{Package.Code}.zip", CompressionLevel.Optimal, false, Encoding.UTF8);
 				Directory.Delete("packages/" + Package.Code, true);
 
 				preparingStatusLabel.ForeColor = Color.LimeGreen;

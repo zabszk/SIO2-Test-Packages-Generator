@@ -28,15 +28,16 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			this.titleLabel = new MetroFramework.Controls.MetroLabel();
 			this.titleTextBox = new MetroFramework.Controls.MetroTextBox();
 			this.codeTextBox = new MetroFramework.Controls.MetroTextBox();
 			this.codeLabel = new MetroFramework.Controls.MetroLabel();
 			this.tabControl = new MetroFramework.Controls.MetroTabControl();
 			this.configurationTab = new MetroFramework.Controls.MetroTabPage();
+			this.dragDropHintLabel = new MetroFramework.Controls.MetroLabel();
 			this.metroPanel1 = new MetroFramework.Controls.MetroPanel();
 			this.launchCommandTextBox = new MetroFramework.Controls.MetroTextBox();
 			this.binaryCustom = new MetroFramework.Controls.MetroRadioButton();
@@ -68,7 +69,6 @@
 			this.browseFileDialog = new System.Windows.Forms.OpenFileDialog();
 			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
 			this.metroLink1 = new MetroFramework.Controls.MetroLink();
-			this.dragDropHintLabel = new MetroFramework.Controls.MetroLabel();
 			this.versionLabel = new MetroFramework.Controls.MetroLabel();
 			this.tabControl.SuspendLayout();
 			this.configurationTab.SuspendLayout();
@@ -198,6 +198,15 @@
 			this.configurationTab.VerticalScrollbarBarColor = true;
 			this.configurationTab.VerticalScrollbarHighlightOnWheel = false;
 			this.configurationTab.VerticalScrollbarSize = 10;
+			// 
+			// dragDropHintLabel
+			// 
+			this.dragDropHintLabel.AutoSize = true;
+			this.dragDropHintLabel.Location = new System.Drawing.Point(12, 320);
+			this.dragDropHintLabel.Name = "dragDropHintLabel";
+			this.dragDropHintLabel.Size = new System.Drawing.Size(321, 19);
+			this.dragDropHintLabel.TabIndex = 15;
+			this.dragDropHintLabel.Text = "(You can drag and drop files to text boxes with paths)";
 			// 
 			// metroPanel1
 			// 
@@ -601,37 +610,37 @@
 			this.testsGrid.BorderStyle = System.Windows.Forms.BorderStyle.None;
 			this.testsGrid.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.None;
 			this.testsGrid.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle4.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-			dataGridViewCellStyle4.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			dataGridViewCellStyle4.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle4.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-			dataGridViewCellStyle4.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-			dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.testsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
+			dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle1.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+			dataGridViewCellStyle1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle1.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+			dataGridViewCellStyle1.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+			dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.testsGrid.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
 			this.testsGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-			dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle5.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			dataGridViewCellStyle5.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
-			dataGridViewCellStyle5.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-			dataGridViewCellStyle5.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-			dataGridViewCellStyle5.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-			this.testsGrid.DefaultCellStyle = dataGridViewCellStyle5;
+			dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle2.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+			dataGridViewCellStyle2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(136)))), ((int)(((byte)(136)))), ((int)(((byte)(136)))));
+			dataGridViewCellStyle2.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+			dataGridViewCellStyle2.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+			dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+			this.testsGrid.DefaultCellStyle = dataGridViewCellStyle2;
 			this.testsGrid.EnableHeadersVisualStyles = false;
 			this.testsGrid.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
 			this.testsGrid.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
 			this.testsGrid.Location = new System.Drawing.Point(3, 15);
 			this.testsGrid.Name = "testsGrid";
 			this.testsGrid.RowHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.None;
-			dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-			dataGridViewCellStyle6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
-			dataGridViewCellStyle6.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
-			dataGridViewCellStyle6.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
-			dataGridViewCellStyle6.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
-			dataGridViewCellStyle6.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
-			dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-			this.testsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle6;
+			dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+			dataGridViewCellStyle3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(174)))), ((int)(((byte)(219)))));
+			dataGridViewCellStyle3.Font = new System.Drawing.Font("Segoe UI", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Pixel);
+			dataGridViewCellStyle3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+			dataGridViewCellStyle3.SelectionBackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(198)))), ((int)(((byte)(247)))));
+			dataGridViewCellStyle3.SelectionForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(17)))), ((int)(((byte)(17)))), ((int)(((byte)(17)))));
+			dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+			this.testsGrid.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
 			this.testsGrid.RowHeadersWidthSizeMode = System.Windows.Forms.DataGridViewRowHeadersWidthSizeMode.DisableResizing;
 			this.testsGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
 			this.testsGrid.Size = new System.Drawing.Size(1059, 303);
@@ -722,24 +731,15 @@
 			this.metroLink1.UseSelectable = true;
 			this.metroLink1.Click += new System.EventHandler(this.metroLink1_Click);
 			// 
-			// dragDropHintLabel
-			// 
-			this.dragDropHintLabel.AutoSize = true;
-			this.dragDropHintLabel.Location = new System.Drawing.Point(12, 320);
-			this.dragDropHintLabel.Name = "dragDropHintLabel";
-			this.dragDropHintLabel.Size = new System.Drawing.Size(321, 19);
-			this.dragDropHintLabel.TabIndex = 15;
-			this.dragDropHintLabel.Text = "(You can drag and drop files to text boxes with paths)";
-			// 
 			// versionLabel
 			// 
 			this.versionLabel.AutoSize = true;
 			this.versionLabel.FontSize = MetroFramework.MetroLabelSize.Small;
-			this.versionLabel.Location = new System.Drawing.Point(1005, 566);
+			this.versionLabel.Location = new System.Drawing.Point(994, 566);
 			this.versionLabel.Name = "versionLabel";
-			this.versionLabel.Size = new System.Drawing.Size(88, 15);
+			this.versionLabel.Size = new System.Drawing.Size(95, 15);
 			this.versionLabel.TabIndex = 7;
-			this.versionLabel.Text = "v. 1.0, 2019/03/31";
+			this.versionLabel.Text = "v. 1.0.1, 2019/03/31";
 			// 
 			// MainForm
 			// 
