@@ -1,5 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO.Compression.FileSystem;
+using System.Drawing;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
 using MetroFramework.Controls;
@@ -17,7 +22,13 @@ namespace SIO2_Test_packages_generator
 		public static bool TestsPassed
 		{
 			get => _passed;
-			set { _passed = value; }
+			set
+			{
+				_passed = value;
+				Instance.buildButton.Enabled = value;
+				Instance.ignoreButton.Enabled = false;
+				if (!value) Instance.preparingStatusLabel.Visible = false;
+			}
 		}
 
 		public MainForm()
@@ -27,12 +38,7 @@ namespace SIO2_Test_packages_generator
 
 		private void MainForm_Load(object sender, EventArgs e)
 		{
-			MetroTextBox.CheckForIllegalCrossThreadCalls = false;
-			MetroCheckBox.CheckForIllegalCrossThreadCalls = false;
-			MetroRadioButton.CheckForIllegalCrossThreadCalls = false;
-			MetroPanel.CheckForIllegalCrossThreadCalls = false;
-			MetroProgressSpinner.CheckForIllegalCrossThreadCalls = false;
-			MetroLabel.CheckForIllegalCrossThreadCalls = false;
+			CheckForIllegalCrossThreadCalls = false;
 
 			Instance = this;
 			tabControl.SelectedIndex = 0;
@@ -156,5 +162,192 @@ namespace SIO2_Test_packages_generator
 		}
 
 		private void tabControl_SelectedIndexChanged(object sender, EventArgs e) => TestsPassed = false;
+
+		private void prepareButton_Click(object sender, EventArgs e)
+		{
+			new Thread(PrepareForBuild)
+			{
+				Name = "Package preparing",
+				Priority = ThreadPriority.AboveNormal,
+				IsBackground = true
+			}.Start();
+		}
+
+		private void PrepareForBuild()
+		{
+			tabControl.Enabled = false;
+
+			preparingStatusLabel.ForeColor = SystemColors.ControlText;
+			preparingStatusLabel.Text = "Running tests...";
+			preparingStatusLabel.Visible = true;
+
+			var errors = Package.TestPackage().ToArray();
+
+			if (errors.Length == 0)
+			{
+				TestsPassed = true;
+				preparingStatusLabel.ForeColor = Color.LimeGreen;
+				preparingStatusLabel.Text = "Package ready to build";
+			}
+			else
+			{
+				TestsPassed = false;
+
+				var critical = errors.Any(error => error.StartsWith("**CRITICAL** "));
+
+				preparingStatusLabel.ForeColor = Color.Crimson;
+				preparingStatusLabel.Text =
+					critical ? "Package cannot be build - critical errors found" : "Package cannot be build - errors found";
+				preparingStatusLabel.Visible = true;
+
+				ignoreButton.Enabled = !critical;
+
+				Instance.Invoke((MethodInvoker) delegate
+				{
+					new ErrorsList(errors).Show();
+				});
+			}
+
+			tabControl.Enabled = true;
+		}
+
+		private void ignoreButton_Click(object sender, EventArgs e)
+		{
+			ignoreButton.Enabled = false;
+			buildButton.Enabled = true;
+		}
+
+		private void buildButton_Click(object sender, EventArgs e)
+		{
+			tabControl.Enabled = false;
+
+			try
+			{
+				if (!Directory.Exists("packages"))
+					Directory.CreateDirectory("packages");
+
+				new Thread(Build)
+				{
+					Name = "Package building",
+					Priority = ThreadPriority.AboveNormal,
+					IsBackground = false
+				}.Start();
+			}
+			catch (Exception ex)
+			{
+				MetroMessageBox.Show(this, "Error during package building", "Exception: " + ex.Message,
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				preparingStatusLabel.ForeColor = Color.Crimson;
+				preparingStatusLabel.Text = "Building package failed";
+				preparingStatusLabel.Visible = true;
+
+				tabControl.Enabled = true;
+			}
+		}
+
+		private void Build()
+		{
+			var errors = new List<string>();
+
+			preparingStatusLabel.ForeColor = SystemColors.ControlText;
+			preparingStatusLabel.Text = "Preparing working directory...";
+			preparingStatusLabel.Visible = true;
+
+			try
+			{
+				var workingDir = "packages/" + Package.Code;
+
+				if (Directory.Exists(workingDir) || File.Exists("packages/" + Package.Code + ".zip"))
+				{
+					if (MetroMessageBox.Show(this, "Overwrite confirmation",
+						    "Package with this code already exists in the \"packages\" folder.\n\nDo you want to overwrite the existing text package?",
+						    MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
+					{
+						if (Directory.Exists(workingDir))
+							Directory.Delete(workingDir, true);
+
+						if (File.Exists("packages/" + Package.Code + ".zip"))
+							File.Delete("packages/" + Package.Code + ".zip");
+					}
+					else return;
+				}
+
+				Directory.CreateDirectory(workingDir);
+				Directory.CreateDirectory(workingDir + "/doc");
+				Directory.CreateDirectory(workingDir + "/in");
+				Directory.CreateDirectory(workingDir + "/out");
+				Directory.CreateDirectory(workingDir + "/prog");
+
+				preparingStatusLabel.Text = "Copying files...";
+
+				if (!string.IsNullOrWhiteSpace(Package.Docs) && File.Exists(Package.Docs))
+					File.Copy(Package.Docs, $"{workingDir}/doc/{Package.Code}zad.{FileExtension(Package.Docs)}", true);
+				else errors.Add("Cannot copy docs file!");
+
+				if (!string.IsNullOrWhiteSpace(Package.SourceCodeFile) && File.Exists(Package.SourceCodeFile))
+					File.Copy(Package.SourceCodeFile, $"{workingDir}/prog/{Package.Code}.{FileExtension(Package.SourceCodeFile)}", true);
+				else errors.Add("Cannot copy source code file!");
+
+				if (Instance.checkerCheckBox.Checked)
+				{
+					if (!string.IsNullOrWhiteSpace(Package.CheckerFile) && File.Exists(Package.CheckerFile))
+						File.Copy(Package.CheckerFile,
+							$"{workingDir}/prog/{Package.Code}chk.{FileExtension(Package.CheckerFile)}", true);
+					else errors.Add("Cannot copy checker file!");
+				}
+
+				if (Instance.generatorCheckBox.Checked)
+				{
+					if (!string.IsNullOrWhiteSpace(Package.GeneratorFile) && File.Exists(Package.GeneratorFile))
+						File.Copy(Package.GeneratorFile,
+							$"{workingDir}/prog/{Package.Code}ingen.{FileExtension(Package.GeneratorFile)}", true);
+					else errors.Add("Cannot copy generator file!");
+				}
+
+				preparingStatusLabel.Text = "Generating I/O files...";
+				var time = "time_limits:";
+				var memory = "memory_limits:";
+				var scores = "scores:";
+
+				foreach (var test in Package.Tests)
+				{
+					File.WriteAllLines($"{workingDir}/in/{test.TestCodeName}.in", test.Input);
+					File.WriteAllLines($"{workingDir}/out/{test.TestCodeName}.out", test.Output);
+					time += $"{Environment.NewLine}    {test.TestCodeName}: {test.TimeLimit}";
+					memory += $"{Environment.NewLine}    {test.TestCodeName}: {test.MemoryLimit}";
+					scores += $"{Environment.NewLine}    {test.TestCodeName}: {test.Points}";
+				}
+
+				preparingStatusLabel.Text = "Generating config file...";
+
+				using (var writer = new StreamWriter(workingDir + "/config.yml"))
+				{
+					if (!string.IsNullOrWhiteSpace(Package.Name))
+						writer.WriteLine("title: " + Package.Name);
+
+					writer.WriteLine(time);
+					writer.WriteLine(memory);
+					writer.WriteLine(scores);
+				}
+
+				preparingStatusLabel.Text = "Generating ZIP file...";
+
+				
+			}
+			catch (Exception e)
+			{
+				MetroMessageBox.Show(this, "Error during package building", "Exception: " + e.Message,
+					MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+				preparingStatusLabel.ForeColor = Color.Crimson;
+				preparingStatusLabel.Text = "Building package failed";
+				preparingStatusLabel.Visible = true;
+
+				tabControl.Enabled = true;
+			}
+		}
+
+		private string FileExtension(string path) => (new FileInfo(path)).Extension;
 	}
 }

@@ -159,6 +159,7 @@ namespace SIO2_Test_packages_generator.Data
 			if (TimeLimit == 0 || MemoryLimit == 0) return false;
 			if (TestName.Length == 0) return false;
 			if (Output == null || Output.Length == 0) return false;
+			if (Input == null) Input = new string[0];
 			ushort parse = 0;
 			if (ushort.TryParse(TestName, out parse)) return true;
 			return TestName.Length != 1 && ushort.TryParse(TestName.Substring(0, TestName.Length - 1), out parse);
