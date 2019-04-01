@@ -257,17 +257,17 @@ namespace SIO2_Test_packages_generator
 
 			try
 			{
-				var workingDir = "packages/" + Package.Code + "/" + Package.Code;
+				var workingDir = "packages/" + Package.Code;
 
-				if (Directory.Exists("packages/" + Package.Code) || File.Exists("packages/" + Package.Code + ".zip"))
+				if (Directory.Exists(workingDir) || File.Exists("packages/" + Package.Code + ".zip"))
 				{
 					if (MetroMessageBox.Show(this,
 						    "Package with this code already exists in the \"packages\" folder.\n\nDo you want to overwrite the existing text package?", 
 						    "Overwrite confirmation",
 							MessageBoxButtons.YesNo, MessageBoxIcon.Warning) == DialogResult.Yes)
 					{
-						if (Directory.Exists("packages/" + Package.Code))
-							Directory.Delete("packages/" + Package.Code, true);
+						if (Directory.Exists(workingDir))
+							Directory.Delete(workingDir, true);
 
 						if (File.Exists("packages/" + Package.Code + ".zip"))
 							File.Delete("packages/" + Package.Code + ".zip");
@@ -312,17 +312,24 @@ namespace SIO2_Test_packages_generator
 				var memory = "memory_limits:";
 				var scores = "scores:";
 
+				var added = new HashSet<string>();
+				added.Add("0");
+
 				foreach (var test in Package.Tests)
 				{
 					File.WriteAllLines($"{workingDir}/in/{Package.Code}{test.TestCodeName}.in", test.Input);
 					File.WriteAllLines($"{workingDir}/out/{Package.Code}{test.TestCodeName}.out", test.Output);
 					time += $"{Environment.NewLine}    {test.TestCodeName}: {test.TimeLimit}";
 					memory += $"{Environment.NewLine}    {test.TestCodeName}: {test.MemoryLimit}";
-					scores += $"{Environment.NewLine}    {test.TestCodeName}: {test.Points}";
+					
+					if (added.Contains(test.SubGroupName())) continue;
+					added.Add(test.SubGroupName());
+					scores += $"{Environment.NewLine}    {test.SubGroupName()}: {test.Points}";
 				}
 
 				preparingStatusLabel.Text = "Generating config file...";
 
+				
 				using (var writer = new StreamWriter(workingDir + "/config.yml"))
 				{
 					if (!string.IsNullOrWhiteSpace(Package.Name))
@@ -333,10 +340,10 @@ namespace SIO2_Test_packages_generator
 					writer.WriteLine(scores);
 				}
 
-				preparingStatusLabel.Text = "Generating ZIP file...";
+				//preparingStatusLabel.Text = "Generating ZIP file...";
 
-				ZipFile.CreateFromDirectory($"packages/{Package.Code}", $"packages/{Package.Code}.zip", CompressionLevel.Optimal, false, Encoding.UTF8);
-				Directory.Delete("packages/" + Package.Code, true);
+				//ZipFile.CreateFromDirectory($"packages/{Package.Code}", $"packages/{Package.Code}.zip", CompressionLevel.Optimal, false, Encoding.UTF8);
+				//Directory.Delete("packages/" + Package.Code, true);
 
 				preparingStatusLabel.ForeColor = Color.LimeGreen;
 				preparingStatusLabel.Text = "Package building completed";

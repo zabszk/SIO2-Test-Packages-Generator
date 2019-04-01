@@ -121,10 +121,10 @@ namespace SIO2_Test_packages_generator.Data
 		}
 
 		[DisplayName("Recommended Time Limit")]
-		public uint RecommendedTimeLimit => (uint) (Time > 0 ? Time * 2 + 100 : 10000);
+		public uint RecommendedTimeLimit => (uint) (Time > 0 ? (Time + 10) / 10 * 20 + 400 : 10000);
 
 		[DisplayName("Recommended Memory Limit")]
-		public uint RecommendedMemoryLimit => (uint) (Memory > 0 ? Memory + 512 : 32768);
+		public uint RecommendedMemoryLimit => (uint) (Memory > 0 ? (Memory + 2000) / 1000 * 3000 : 32768);
 
 		public string[] Input, Output;
 		public ushort Flags;
@@ -167,6 +167,6 @@ namespace SIO2_Test_packages_generator.Data
 
 		internal bool IsInSubGroup() => TestName.Length > 1 && !ushort.TryParse(TestName, out var parse);
 
-		internal string SubGroupName() => IsInSubGroup() ? TestCodeName.Substring(0, TestName.Length - 1) : TestCodeName;
+		internal string SubGroupName() => IsInSubGroup() ? TestCodeName.Substring(0, TestCodeName.Length - 1) : TestCodeName;
 	}
 }

@@ -143,12 +143,24 @@ namespace SIO2_Test_packages_generator
 								if (index > 0)
 									noext = noext.Substring(0, index);
 							}
+							
+							ushort flag = 0;
+							
+							if (noext.StartsWith("s")) {
+								noext = noext.Substring(1);
+								flag = (ushort)TestFlags.Slow;
+							}
+							else if (noext.StartsWith("b")) {
+								noext = noext.Substring(1);
+								flag = (ushort)TestFlags.Incorrect;
+							}
 
 							var test = new Test()
 							{
 								TestName = noext,
 								Input = testInput,
-								Output = testOutput
+								Output = testOutput,
+								Flags = flag
 							};
 							tests.Add(test);
 
@@ -211,11 +223,23 @@ namespace SIO2_Test_packages_generator
 
 							var name = line.Substring(0, line.IndexOf(": ", StringComparison.Ordinal));
 							var input = line.Substring(name.Length + 2).Split(new[] {"\\n"}, StringSplitOptions.None);
-
+							
+							ushort flag = 0;
+							
+							if (name.StartsWith("s")) {
+								name = name.Substring(1);
+								flag = (ushort)TestFlags.Slow;
+							}
+							else if (name.StartsWith("b")) {
+								name = name.Substring(1);
+								flag = (ushort)TestFlags.Incorrect;
+							}
+								
 							var test = new Test()
 							{
 								TestName = name,
-								Input = input
+								Input = input,
+								Flags = flag
 							};
 							tests.Add(test);
 
