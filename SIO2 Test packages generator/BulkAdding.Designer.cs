@@ -125,7 +125,7 @@
 			this.inputDirTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.inputDirTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 			this.inputDirTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
-			this.inputDirTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
+			this.inputDirTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBoxDragEnter);
 			// 
 			// folderModePanel
 			// 
@@ -219,7 +219,7 @@
 			this.outputDirTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.outputDirTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 			this.outputDirTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
-			this.outputDirTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
+			this.outputDirTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBoxDragEnter);
 			// 
 			// fileModeRadio
 			// 
@@ -300,7 +300,7 @@
 			this.filePathTextBox.WaterMarkColor = System.Drawing.Color.FromArgb(((int)(((byte)(109)))), ((int)(((byte)(109)))), ((int)(((byte)(109)))));
 			this.filePathTextBox.WaterMarkFont = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Pixel);
 			this.filePathTextBox.DragDrop += new System.Windows.Forms.DragEventHandler(this.TextBox_DragDrop);
-			this.filePathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.DragEnter);
+			this.filePathTextBox.DragEnter += new System.Windows.Forms.DragEventHandler(this.TextBoxDragEnter);
 			// 
 			// fileModeDesc
 			// 

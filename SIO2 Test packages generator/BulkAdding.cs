@@ -317,7 +317,7 @@ namespace SIO2_Test_packages_generator
 			_status = 2;
 		}
 
-		private void DragEnter(object sender, DragEventArgs e) => e.Effect =
+		private void TextBoxDragEnter(object sender, DragEventArgs e) => e.Effect =
 			e.Data.GetDataPresent(DataFormats.FileDrop) ? DragDropEffects.Copy : DragDropEffects.None;
 	}
 }

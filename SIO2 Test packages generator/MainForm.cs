@@ -2,9 +2,7 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
-using System.IO.Compression;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
@@ -257,7 +255,7 @@ namespace SIO2_Test_packages_generator
 
 			try
 			{
-				var workingDir = "packages/" + Package.Code;
+				var workingDir = "packages/" + Package.Code + "/" + Package.Code;
 
 				if (Directory.Exists(workingDir) || File.Exists("packages/" + Package.Code + ".zip"))
 				{
@@ -340,12 +338,13 @@ namespace SIO2_Test_packages_generator
 					writer.WriteLine(scores);
 				}
 
-				//preparingStatusLabel.Text = "Generating ZIP file...";
+				preparingStatusLabel.Text = "Generating ZIP file...";
 
-				//ZipFile.CreateFromDirectory($"packages/{Package.Code}", $"packages/{Package.Code}.zip", CompressionLevel.Optimal, false, Encoding.UTF8);
-				//Directory.Delete("packages/" + Package.Code, true);
+                var fastZip = new ICSharpCode.SharpZipLib.Zip.FastZip();
+                fastZip.CreateZip($"packages/{Package.Code}.zip", $"packages/{Package.Code}", true, "");
+                Directory.Delete("packages/" + Package.Code, true);
 
-				preparingStatusLabel.ForeColor = Color.LimeGreen;
+                preparingStatusLabel.ForeColor = Color.LimeGreen;
 				preparingStatusLabel.Text = "Package building completed";
 				tabControl.Enabled = true;
 			}
@@ -374,5 +373,28 @@ namespace SIO2_Test_packages_generator
 			if (files == null || files.Length == 0) return;
 			tb.Text = files[0];
 		}
-	}
+
+        private void MainForm_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (tabControl.SelectedIndex != 1 || testsGrid.SelectedRows.Count == 0) return;
+
+            switch (e.KeyCode)
+            {
+                case Keys.F2:
+                    e.Handled = true;
+
+                    var list = new List<Test>();
+
+                    foreach (var row in testsGrid.SelectedRows)
+                    {
+                        var rr = Package.Tests.ElementAtOrDefault(((DataGridViewRow) row).Index);
+                        if (rr != null)
+                            list.Add(rr);
+                    }
+
+                    new BulkEdit(list).ShowDialog(this);
+                    break;
+            }
+        }
+    }
 }

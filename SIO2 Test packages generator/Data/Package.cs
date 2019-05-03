@@ -66,10 +66,8 @@ namespace SIO2_Test_packages_generator.Data
 				try
 				{
 					var stopwatch = new Stopwatch();
-					stopwatch.Start();
-					var result = GetOutput(input).ToArray();
-					stopwatch.Stop();
-					int.TryParse(result.ElementAt(0), out var ram);
+                    var result = GetOutput(input, stopwatch).ToArray();
+                    int.TryParse(result.ElementAt(0), out var ram);
 
 					output.OutputGenerated(result.Skip(1), (int)stopwatch.ElapsedMilliseconds, ram);
 				}
@@ -85,7 +83,7 @@ namespace SIO2_Test_packages_generator.Data
 			}.Start();
 		}
 
-		internal IEnumerable<string> GetOutput(IEnumerable<string> input)
+		private IEnumerable<string> GetOutput(IEnumerable<string> input, Stopwatch stp)
 		{
 			if (string.IsNullOrWhiteSpace(BinaryFile) && string.IsNullOrWhiteSpace(ExecCommand)) throw new Exception("BinaryFile and ExecCommand are both empty.");
 
@@ -107,6 +105,8 @@ namespace SIO2_Test_packages_generator.Data
 				var reader = process.StandardOutput;
 				var errorReader = process.StandardError;
 
+                stp.Start();
+
 				foreach (var writeLine in input)
 					writer.WriteLine(writeLine.Trim('\n', '\r'));
 
@@ -121,6 +121,8 @@ namespace SIO2_Test_packages_generator.Data
 					if (last > peak) peak = last;
 					Thread.Sleep(1);
 				}
+
+                stp.Stop();
 
 				yield return (peak / 1024).ToString();
 				string line;

@@ -1,4 +1,6 @@
 ﻿using System.ComponentModel;
+using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using MetroFramework;
 
@@ -54,11 +56,17 @@ namespace SIO2_Test_packages_generator.Data
 					return;
 				}
 				Points = conv;
-			}
+
+                if (!IsInSubGroup()) return;
+                var subgroup = SubGroupName();
+
+                MainForm.Package.Tests
+                    .Where(test => test.TestCodeName != TestCodeName && test.SubGroupName() == subgroup).ToList()
+                    .ForEach(test => test.Points = conv);
+            }
 		}
 
-
-		public string Type
+        public string Type
 		{
 			get
 			{
