@@ -63,8 +63,8 @@ namespace SIO2_Test_packages_generator
 			if (pointsTextBox.Text == string.Empty)
 				Target.Points = 0;
 			else if (uint.TryParse(pointsTextBox.Text, out var points))
-				Target.PointsDisplay = pointsTextBox.Text;
-			else
+                Target.PointsDisplay = pointsTextBox.Text;
+            else
 				pointsTextBox.Text = Target.Points.ToString();
 		}
 

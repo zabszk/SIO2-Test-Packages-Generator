@@ -141,9 +141,9 @@ namespace SIO2_Test_packages_generator
 
 		internal void RefreshGridView()
 		{
-			testsGrid.DataSource = null;
-			testsGrid.DataSource = Package.TestsSource;
-		}
+            MainForm.Instance.testsGrid.Update();
+            MainForm.Instance.testsGrid.Refresh();
+        }
 
 		private void addTestButton_Click(object sender, EventArgs e)
 		{

@@ -63,6 +63,8 @@ namespace SIO2_Test_packages_generator.Data
                 MainForm.Package.Tests
                     .Where(test => test.TestCodeName != TestCodeName && test.SubGroupName() == subgroup).ToList()
                     .ForEach(test => test.Points = conv);
+
+                MainForm.Instance.RefreshGridView();
             }
 		}
 
