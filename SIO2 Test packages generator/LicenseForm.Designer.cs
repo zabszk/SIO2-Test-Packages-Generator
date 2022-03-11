@@ -28,34 +28,33 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LicenseForm));
-            this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
-            this.SuspendLayout();
-            // 
-            // metroLabel1
-            // 
-            this.metroLabel1.AutoSize = true;
-            this.metroLabel1.Location = new System.Drawing.Point(23, 60);
-            this.metroLabel1.Name = "metroLabel1";
-            this.metroLabel1.Size = new System.Drawing.Size(590, 513);
-            this.metroLabel1.TabIndex = 0;
-            this.metroLabel1.Text = resources.GetString("metroLabel1.Text");
-            // 
-            // LicenseForm
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(657, 583);
-            this.Controls.Add(this.metroLabel1);
-            this.KeyPreview = true;
-            this.MaximizeBox = false;
-            this.Name = "LicenseForm";
-            this.Resizable = false;
-            this.Text = "SIO2 Test Packages Generator - License";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LicenseForm_KeyDown);
-            this.ResumeLayout(false);
-            this.PerformLayout();
-
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LicenseForm));
+			this.metroLabel1 = new MetroFramework.Controls.MetroLabel();
+			this.SuspendLayout();
+			// 
+			// metroLabel1
+			// 
+			this.metroLabel1.AutoSize = true;
+			this.metroLabel1.Location = new System.Drawing.Point(23, 60);
+			this.metroLabel1.Name = "metroLabel1";
+			this.metroLabel1.Size = new System.Drawing.Size(590, 513);
+			this.metroLabel1.TabIndex = 0;
+			this.metroLabel1.Text = resources.GetString("metroLabel1.Text");
+			// 
+			// LicenseForm
+			// 
+			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+			this.ClientSize = new System.Drawing.Size(657, 583);
+			this.Controls.Add(this.metroLabel1);
+			this.KeyPreview = true;
+			this.MaximizeBox = false;
+			this.Name = "LicenseForm";
+			this.Resizable = false;
+			this.Text = "SIO2 Test Packages Generator - License";
+			this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LicenseForm_KeyDown);
+			this.ResumeLayout(false);
+			this.PerformLayout();
 		}
 
 		#endregion
